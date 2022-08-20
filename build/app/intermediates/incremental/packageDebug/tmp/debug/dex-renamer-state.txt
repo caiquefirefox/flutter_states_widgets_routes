@@ -1,4 +1,4 @@
-#Sat Aug 20 16:21:33 BRT 2022
+#Sat Aug 20 17:18:51 BRT 2022
 base.0=C\:\\projetos-git\\flutter_states_widgets_routes\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

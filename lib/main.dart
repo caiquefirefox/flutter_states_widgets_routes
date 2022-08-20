@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_states_widgets_routes/models/Language.dart';
+import 'package:flutter_states_widgets_routes/screen/AddLanguage.dart';
 import 'customs/itemList.dart';
 
 void main() {
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      initialRoute: "/home",
+      routes: {
+        "/home" : (context) => MyHomePage(),
+        "/add":(context) => AddLanguage(),
+      },
     );
   }
 }
@@ -33,11 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> selects = [false, false, false, false, false];
   List<Language> languages =
   [
-    Language('Android Nativo', 'Linguagens C, Java e Kotlin', Icons.android),
+    /*Language('Android Nativo', 'Linguagens C, Java e Kotlin', Icons.android),
     Language('IOS Nativo', 'Linguagens Objective-C e Swift'),
     Language('Flutter', 'Linguagem DART'),
     Language('React Native', 'Linguagens C, Java e Kotlin'),
-    Language('Ionic', 'Linguagens Javascript e TypeScript')
+    Language('Ionic', 'Linguagens Javascript e TypeScript')*/
   ];
 
 
@@ -47,7 +52,14 @@ class _MyHomePageState extends State<MyHomePage> {
     (
       appBar: AppBar
       (
-        title: Text("Escolha de linguagem")
+        title: Text("Escolha de linguagem"),
+        actions: [
+          IconButton
+          (
+              onPressed: _goToNewLanguage,
+              icon: const Icon(Icons.add)
+          )
+        ],
       ),
       body: Column
       (
@@ -88,11 +100,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
+  void _goToNewLanguage()
+  {
+    Future future = Navigator.pushNamed(context, "/add");
+    future.then((language) => {
+      setState((){
+        languages.add(language);
+      })
+    });
+  }
+
   List<Widget> buildListItens(){
     return languages
     .where((element) => element.selected)
     .map((language) => getItemList(language.title, language.subtitle, language.icon))
     .toList();
   }
-
 }
